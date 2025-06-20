@@ -11,6 +11,8 @@ def choose_folder():
 def sanitize_url(url):
     if "music.youtube.com" in url:
         url = url.replace("music.youtube.com", "www.youtube.com")
+    if "youtu.be" in url:
+        url = url.replace("youtu.be","www.youtube.com")
     if "&si=" in url:
         url = url.split("&si=")[0]
     return url
@@ -18,13 +20,13 @@ def sanitize_url(url):
 def download_youtube_audio(url, folder, bitrate):
     command = [
         "python", "-m", "yt_dlp",
-        "yt-dlp",
         "--extract-audio",
         "--audio-format", "mp3",
         "--audio-quality", bitrate,
         "-o", f"{folder}/%(title)s.%(ext)s",
         url
     ]
+
     try:
         subprocess.run(command, check=True)
         print("Download and conversion complete.")
@@ -33,7 +35,7 @@ def download_youtube_audio(url, folder, bitrate):
 
 def main():
     print("==== YouTube to MP3 Downloader ====")
-    print("1. Single video")
+    print("1. Single Video")
     print("2. Playlist")
     choice = input("Enter choice (1 or 2): ").strip()
 
