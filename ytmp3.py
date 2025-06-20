@@ -8,14 +8,34 @@ def choose_folder():
     root.destroy()
     return folder
 
-def sanitize_url(url):
+"""def sanitize_url(url):
     if "music.youtube.com" in url:
         url = url.replace("music.youtube.com", "www.youtube.com")
     if "youtu.be" in url:
         url = url.replace("youtu.be","www.youtube.com")
     if "&si=" in url:
         url = url.split("&si=")[0]
+    return url"""
+
+def sanitize_url(url):
+    # Fix music domain
+    url = url.replace("music.youtube.com", "www.youtube.com")
+
+    # Convert youtu.be short links to proper full format
+    if "youtu.be/" in url:
+        video_id = url.split("youtu.be/")[1]
+        if "?si=" in video_id:
+            video_id = video_id.split("?si=")[0]
+        url = f"https://www.youtube.com/watch?v={video_id}"
+
+    # Remove ?si= or &si= parameters from normal URLs
+    if "&si=" in url:
+        url = url.split("&si=")[0]
+    elif "?si=" in url:
+        url = url.split("?si=")[0]
+
     return url
+
 
 def download_youtube_audio(url, folder, bitrate):
     command = [
