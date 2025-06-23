@@ -19,7 +19,7 @@ def sanitize_url(url):
         url = url.split("?si=")[0]
     return url
 
-def download_youtube_media(url, folder, format_choice, quality):
+def download_youtube_media(url, folder, format_choice):
     output_template = f"{folder}/%(title)s.%(ext)s"
     
     command = [
