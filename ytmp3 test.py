@@ -25,7 +25,7 @@ def sanitize_url(url):
 
 def download_youtube_media(url, folder, format_choice):
 
-    print("🎧 Downloading best audio with yt-dlp...")
+    print("Downloading best audio with yt-dlp...")
     
     # Use yt-dlp to download best audio and keep original title
     yt_info_cmd = [
@@ -74,7 +74,7 @@ def download_youtube_media(url, folder, format_choice):
             output_path
         ]
 
-        print(f"🎛Converting to {folder_name}...")
+        print(f"Converting to {folder_name}...")
         try:
             subprocess.run(convert_cmd, check=True)
         except subprocess.CalledProcessError as e:
